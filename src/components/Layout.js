@@ -13,10 +13,13 @@ export default withRouter(props => (
       <Container>
         {props.children}
       </Container>
+      {props.history.location.pathname !== '/replay' &&
+        <Grid>
+          <Grid.Row></Grid.Row>
+          <Grid.Row centered>
+            <Social />
+          </Grid.Row>
+        </Grid>}
     </Grid.Column>
-    {props.history.location.pathname !== '/replay' &&
-    <Grid.Row centered>
-      <Social />
-    </Grid.Row>}
   </Grid>
 ));

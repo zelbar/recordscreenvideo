@@ -33,7 +33,8 @@ export class Download extends Component {
     return (
       <Grid stackable relaxed='very'>
         <Grid.Column width={config.showAds ? 6 : 16}>
-          {false && <Segment>
+          {config.showResolutionPicker && 
+          <Segment>
             <Header>Resolution</Header>
             <Form>
               <Form.Group>
@@ -74,31 +75,31 @@ export class Download extends Component {
           <Segment>
             <Header>Video properties</Header>
             <Statistic.Group widths={5} size='mini'>
-                  <Statistic>
-                    <Statistic.Label>Width</Statistic.Label>
-                    <Statistic.Value>{this.props.resolution.width}</Statistic.Value>
-                  </Statistic>
-                  <Statistic>
-                    <Statistic.Label>Height</Statistic.Label>
-                    <Statistic.Value>{this.props.resolution.height}</Statistic.Value>
-                  </Statistic>
-                  <Statistic>
-                    <Statistic.Label>Format</Statistic.Label>
-                    <Statistic.Value>
-                      {VideoStorage.type && VideoStorage.type.split('/')[1].split(';')[0]}
-                    </Statistic.Value>
-                  </Statistic>
-                  <Statistic>
-                    <Statistic.Label>Codec</Statistic.Label>
-                    <Statistic.Value>
-                      {VideoStorage.type && VideoStorage.type.includes('=') ? 
-                        VideoStorage.type.split('/')[1].split(';')[1].split('=')[1] : 'default'}
-                    </Statistic.Value>
-                  </Statistic>
-                  <Statistic>
-                    <Statistic.Label>Size</Statistic.Label>
-                    <Statistic.Value>{filesize(VideoStorage.size)}</Statistic.Value>
-                  </Statistic>
+              <Statistic>
+                <Statistic.Label>Width</Statistic.Label>
+                <Statistic.Value>{this.props.resolution.width}</Statistic.Value>
+              </Statistic>
+              <Statistic>
+                <Statistic.Label>Height</Statistic.Label>
+                <Statistic.Value>{this.props.resolution.height}</Statistic.Value>
+              </Statistic>
+              <Statistic>
+                <Statistic.Label>Format</Statistic.Label>
+                <Statistic.Value>
+                  {VideoStorage.type && VideoStorage.type.split('/')[1].split(';')[0]}
+                </Statistic.Value>
+              </Statistic>
+              <Statistic>
+                <Statistic.Label>Codec</Statistic.Label>
+                <Statistic.Value>
+                  {VideoStorage.type && VideoStorage.type.includes('=') ?
+                    VideoStorage.type.split('/')[1].split(';')[1].split('=')[1] : 'default'}
+                </Statistic.Value>
+              </Statistic>
+              <Statistic>
+                <Statistic.Label>Size</Statistic.Label>
+                <Statistic.Value>{filesize(VideoStorage.size)}</Statistic.Value>
+              </Statistic>
             </Statistic.Group>
             <Header>File name</Header>
             <Input
@@ -132,17 +133,18 @@ export class Download extends Component {
             </Responsive>
           </div>}
         </Grid.Column>
-        {config.showAds && <Grid.Column width={10}>
-          <Responsive {...Responsive.onlyComputer}>
-            <Advertisement centered unit='netboard' test='Computer Netboard #2' />
-          </Responsive>
-          <Responsive {...Responsive.onlyTablet}>
-            <Advertisement centered unit='large rectangle' test='Large Tablet Rectangle' />
-          </Responsive>
-          <Responsive {...Responsive.onlyMobile}>
-            <Advertisement centered unit='half banner' test='Half Mobile Banner' />
-          </Responsive>
-        </Grid.Column>}
+        {config.showAds &&
+          <Grid.Column width={10}>
+            <Responsive {...Responsive.onlyComputer}>
+              <Advertisement centered unit='netboard' test='Computer Netboard #2' />
+            </Responsive>
+            <Responsive {...Responsive.onlyTablet}>
+              <Advertisement centered unit='large rectangle' test='Large Tablet Rectangle' />
+            </Responsive>
+            <Responsive {...Responsive.onlyMobile}>
+              <Advertisement centered unit='half banner' test='Half Mobile Banner' />
+            </Responsive>
+          </Grid.Column>}
       </Grid>
     );
   }
