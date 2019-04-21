@@ -3,6 +3,6 @@
     "showCursorOptions": false,
     "showVideoFormat": true,
     "showResolutionPicker": false,
-    "showShareStep": true,
+    "showShareStep": false,
     "showAds": false
 }

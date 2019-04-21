@@ -26,7 +26,7 @@ class Steps extends Component {
         return (
             <div>
                 <Step.Group widths={3}>
-                    <Step as={NavLink} to ="/record">
+                    <Step as={NavLink} to="/record">
                         <Icon name='record' />
                         <Step.Content>
                             <Step.Title>Record</Step.Title>
@@ -47,13 +47,14 @@ class Steps extends Component {
                             <Step.Description>File name &amp; download</Step.Description>
                         </Step.Content>
                     </Step>
-                    {config.showShareStep && <Step as={NavLink} to="/share" disabled={!this.props.fileAvailable}>
-                        <Icon name='share alternate' />
-                        <Step.Content>
-                            <Step.Title>Share</Step.Title>
-                            <Step.Description>Let others know</Step.Description>
-                        </Step.Content>
-                    </Step>}
+                    {config.showShareStep &&
+                        <Step as={NavLink} to="/share" disabled={!this.props.fileAvailable}>
+                            <Icon name='share alternate' />
+                            <Step.Content>
+                                <Step.Title>Share</Step.Title>
+                                <Step.Description>Let others know</Step.Description>
+                            </Step.Content>
+                        </Step>}
                 </Step.Group>
             </div>
         );
