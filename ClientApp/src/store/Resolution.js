@@ -32,7 +32,6 @@ export const reducer = (state, action) => {
 
     if (action.type === setWidth) {
         const resolution = findResolution(action.width, state.height);
-        console.log('res w', resolution, action.width, state.height);
         return { ...state, width: action.width, id: resolution ? resolution.id : null }
     }
 

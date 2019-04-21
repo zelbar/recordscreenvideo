@@ -1,3 +1,4 @@
 export const VideoStorage = {
-    objectUrl: null
+    objectUrl: null,
+    size: 0
 };

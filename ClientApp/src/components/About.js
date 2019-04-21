@@ -1,7 +1,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { actionCreators } from '../store/Counter';
 
 const About = props => (
   <div>
@@ -12,6 +11,5 @@ const About = props => (
 );
 
 export default connect(
-  state => state.about,
-  dispatch => bindActionCreators(actionCreators, dispatch)
+  state => state.about
 )(About);

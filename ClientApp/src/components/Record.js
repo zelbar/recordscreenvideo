@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Advertisement, Button, Form, Grid, Header, Icon, Message, Modal, Radio, Select } from 'semantic-ui-react/dist/commonjs';
+import { Advertisement, Button, Divider, Form, Grid, Header, Icon, Message, Modal, Radio, Responsive, Segment } from 'semantic-ui-react/dist/commonjs';
 import { actionCreators as fileActionCreators, possibleFormats } from '../store/File';
 import { actionCreators as recordingActionCreators } from '../store/Recording';
 import { actionCreators as resolutionActionCreators } from '../store/Resolution';
 import { VideoStorage } from '../store/VideoStorage';
+import config from '../config';
 
 const cursorOptions = [
     { id: 'always', label: 'Always' },
@@ -83,6 +84,7 @@ class Record extends Component {
         });
         this.mediaRecorder = new MediaRecorder(this.stream, { mimeType: this.props.format });
         this.mediaRecorder.addEventListener('dataavailable', event => {
+            //if (!this.recording) return;
             if (event.data && event.data.size > 0) {
                 this.chunks.push(event.data);
             }
@@ -91,16 +93,22 @@ class Record extends Component {
     }
 
     _stopCapturing = async (e) => {
-        this.props.recordingActions.stopRecording();
-        if (this.mediaRecorder) {
-            this.mediaRecorder.stop();
-            this.mediaRecorder = null;
-            this.stream.getTracks().forEach(track => track.stop());
-            this.stream = null;
-        }
+        if (!this.mediaRecorder) return;
 
         console.log('Stop capturing.');
-        VideoStorage.objectUrl = window.URL.createObjectURL(new Blob(this.chunks, { type: this.props.format }));
+        this.props.recordingActions.stopRecording();
+
+        this.mediaRecorder.stop();
+        this.mediaRecorder = null;
+        this.stream.getTracks().forEach(track => track.stop());
+        this.stream = null;
+
+        const blob = new Blob(this.chunks, { type: this.props.format });
+        VideoStorage.objectUrl = window.URL.createObjectURL(blob);
+        VideoStorage.size = blob.size;
+        VideoStorage.type = blob.type;
+
+        this.props.fileActions.setFileAvailable(true);
         this.props.history.push('/replay');
     }
 
@@ -108,48 +116,11 @@ class Record extends Component {
         return (
             <div>
                 <Grid centered>
-                    {false && <Grid.Row>
-                        <Form>
-                            <p>Show cursor</p>
-                            <Grid columns={3}>
-                                {cursorOptions.map(opt =>
-                                    <Grid.Column key={opt.id}>
-                                        <Radio
-                                            label={opt.label}
-                                            name='cursorOptionId'
-                                            value={opt.id}
-                                            checked={opt.id === this.state.cursorOption}
-                                            onChange={this.handleSetCursorOption}
-                                        />
-                                    </Grid.Column>)}
-                            </Grid>
-                        </Form>
-                    </Grid.Row>}
-                    {true && <Form>
-                        <p>Video format</p>
-                        <Form.Select 
-                            placeholder='Select video format and codec' 
-                            options={possibleFormats}
-                            onChange={this.handleSetFileFormat}
-                            value={this.props.format}
-                        />
-                    </Form>}
                     <Grid.Row>
-                        {this.props.enableStartCapture &&
-                            <Button circular icon color='red' size='massive' labelPosition='right' onClick={this._startCapturing}>
-                                <Icon name='record' />
-                                Start recording
-                            </Button>}
-                        {this.props.enableStopCapture &&
-                            <Button circular icon color='orange' size='massive' labelPosition='right' onClick={this._stopCapturing}>
-                                <Icon name='stop' />
-                                Stop recording
-                            </Button>}
-
                         {this.props.showBrowserUnsupported &&
                             <Message negative>
                                 <Message.Header>Browser not supported</Message.Header>
-                                <p>Please download a decent browser </p>
+                                <p>Screen recording is supported by modern desktop browsers. Mobile browsers are currently not supported.</p>
                             </Message>}
 
                         {this.props.errormessage &&
@@ -157,11 +128,77 @@ class Record extends Component {
                                 <Message.Header>Error</Message.Header>
                                 <p>{this.props.errorMessage}</p>
                             </Message>}
-
                     </Grid.Row>
-                    <Grid.Row>
-                        <Advertisement unit='netboard' test='Netboard' />
-                    </Grid.Row>
+                    {!this.props.showBrowserUnsupported &&
+                        <Segment>
+                            {config.showCursorOptions &&
+                                <Grid.Row>
+                                    <Form>
+                                        <p>Show cursor</p>
+                                        <Grid columns={3}>
+                                            {cursorOptions.map(opt =>
+                                                <Grid.Column key={opt.id}>
+                                                    <Radio
+                                                        label={opt.label}
+                                                        name='cursorOptionId'
+                                                        value={opt.id}
+                                                        checked={opt.id === this.state.cursorOption}
+                                                        onChange={this.handleSetCursorOption}
+                                                    />
+                                                </Grid.Column>)}
+                                        </Grid>
+                                    </Form>
+                                </Grid.Row>}
+                            {config.showVideoFormat &&
+                                <Grid.Row>
+                                    <Form>
+                                        <Form.Select
+                                            label='File format and video codec'
+                                            placeholder='Select video format and codec'
+                                            options={possibleFormats}
+                                            onChange={this.handleSetFileFormat}
+                                            value={this.props.format}
+                                        />
+                                    </Form>
+                                </Grid.Row>}
+                            <Divider />
+                            <Grid.Row>
+                                {this.props.enableStartCapture &&
+                                    <Button
+                                        icon
+                                        fluid
+                                        color='red'
+                                        size='big'
+                                        labelPosition='right'
+                                        onClick={this._startCapturing}>
+                                        <Icon name='record' />
+                                        Start
+                            </Button>}
+                                {this.props.enableStopCapture &&
+                                    <Button
+                                        icon
+                                        fluid
+                                        color='orange'
+                                        size='big'
+                                        labelPosition='right'
+                                        onClick={this._stopCapturing}>
+                                        <Icon name='stop' />
+                                        Stop
+                            </Button>}
+                            </Grid.Row>
+                        </Segment>}
+                    {config.showAds &&
+                        <Grid.Row>
+                            <Responsive {...Responsive.onlyComputer}>
+                                <Advertisement unit='billboard' test='Computer Billboard' />
+                            </Responsive>
+                            <Responsive {...Responsive.onlyTablet}>
+                                <Advertisement unit='netboard' test='Tablet Netboard' />
+                            </Responsive>
+                            <Responsive {...Responsive.onlyMobile}>
+                                <Advertisement unit='small rectangle' test='Mobile Small Rectangle' />
+                            </Responsive>
+                        </Grid.Row>}
                 </Grid>
 
                 <Modal open={this.props.recordingConsentDim} basic size='small'>

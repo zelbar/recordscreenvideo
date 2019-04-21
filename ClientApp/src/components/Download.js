@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import { Advertisement, Button, Container, Divider, Form, Grid, Header, Icon, Input, Label, Radio, Segment } from 'semantic-ui-react/dist/commonjs';
-import { VideoStorage } from '../store/VideoStorage';
+import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { actionCreators as resolutionActionCreators, resolutions } from '../store/Resolution';
 import { actionCreators as fileActionCreators } from '../store/File';
+import { VideoStorage } from '../store/VideoStorage';
+import { Advertisement, Button, Divider, Form, Grid, Header, Icon, Input, Radio, Responsive, Segment, Statistic } from 'semantic-ui-react/dist/commonjs';
+import prettyBytes from 'pretty-bytes';
+import config from '../config';
 
 export class Download extends Component {
-  handleSetResolution = (evt, { value }) => this.props.resolutionActions.setResolution(parseInt(value));
-  handleSetWidth = (evt, { value }) => this.props.resolutionActions.setWidth(parseInt(value));
-  handleSetHeight = (evt, { value }) => this.props.resolutionActions.setHeight(parseInt(value));
+  handleSetResolution = (evt, { value }) => this.props.resolutionActions.setResolution(parseInt(value, 10));
+  handleSetWidth = (evt, { value }) => this.props.resolutionActions.setWidth(parseInt(value, 10));
+  handleSetHeight = (evt, { value }) => this.props.resolutionActions.setHeight(parseInt(value, 10));
   handleSetFileName = (evt, { value }) => this.props.fileActions.setFileName(value);
   downloadRecording = () => {
     console.log('Download recording.');
@@ -22,16 +25,15 @@ export class Download extends Component {
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
+
+    //this.props.history.push('/share');
   };
 
   render() {
     return (
       <Grid stackable relaxed='very'>
-        <Grid.Column width={10} verticalAlign='middle' textAlign='center'>
-          <Advertisement unit='netboard' test='Netboard #2' />
-        </Grid.Column>
-        <Grid.Column width={6}>
-          <Segment>
+        <Grid.Column width={config.showAds ? 6 : 16}>
+          {false && <Segment>
             <Header>Resolution</Header>
             <Form>
               <Form.Group>
@@ -68,8 +70,36 @@ export class Download extends Component {
                   />
                 </Form.Field>)}
             </Form>
-          </Segment>
+          </Segment>}
           <Segment>
+            <Header>Video properties</Header>
+            <Statistic.Group widths={5} size='mini'>
+                  <Statistic>
+                    <Statistic.Label>Width</Statistic.Label>
+                    <Statistic.Value>{this.props.resolution.width}</Statistic.Value>
+                  </Statistic>
+                  <Statistic>
+                    <Statistic.Label>Height</Statistic.Label>
+                    <Statistic.Value>{this.props.resolution.height}</Statistic.Value>
+                  </Statistic>
+                  <Statistic>
+                    <Statistic.Label>Format</Statistic.Label>
+                    <Statistic.Value>
+                      {VideoStorage.type && VideoStorage.type.split('/')[1].split(';')[0]}
+                    </Statistic.Value>
+                  </Statistic>
+                  <Statistic>
+                    <Statistic.Label>Codec</Statistic.Label>
+                    <Statistic.Value>
+                      {VideoStorage.type && VideoStorage.type.includes('=') ? 
+                        VideoStorage.type.split('/')[1].split(';')[1].split('=')[1] : 'default'}
+                    </Statistic.Value>
+                  </Statistic>
+                  <Statistic>
+                    <Statistic.Label>Size</Statistic.Label>
+                    <Statistic.Value>{prettyBytes(VideoStorage.size)}</Statistic.Value>
+                  </Statistic>
+            </Statistic.Group>
             <Header>File name</Header>
             <Input
               value={this.props.file.name}
@@ -80,19 +110,45 @@ export class Download extends Component {
               labelPosition='right'
             />
           </Segment>
-
           {true &&
-            <Button fluid icon labelPosition='right' color='green' size='massive' onClick={this.downloadRecording}>
+            <Button
+              fluid
+              icon
+              disabled={VideoStorage.size === 0}
+              labelPosition='right'
+              color='green'
+              size='massive'
+              onClick={this.downloadRecording}>
               <Icon name='download' />
               Download
-              </Button>}
+            </Button>}
+          {config.showAds && <div>
+            <Divider />
+            <Responsive {...Responsive.onlyComputer}>
+              <Advertisement centered unit='medium rectangle' test='Medium Rectangle' />
+            </Responsive>
+            <Responsive {...Responsive.onlyTablet}>
+              <Advertisement centered unit='small rectangle' test='Small Mobile Rectangle' />
+            </Responsive>
+          </div>}
         </Grid.Column>
+        {config.showAds && <Grid.Column width={10}>
+          <Responsive {...Responsive.onlyComputer}>
+            <Advertisement centered unit='netboard' test='Computer Netboard #2' />
+          </Responsive>
+          <Responsive {...Responsive.onlyTablet}>
+            <Advertisement centered unit='large rectangle' test='Large Tablet Rectangle' />
+          </Responsive>
+          <Responsive {...Responsive.onlyMobile}>
+            <Advertisement centered unit='half banner' test='Half Mobile Banner' />
+          </Responsive>
+        </Grid.Column>}
       </Grid>
     );
   }
 }
 
-export default connect(
+export default withRouter(connect(
   state => ({ resolution: state.resolution, file: state.file }),
   dispatch => ({ resolutionActions: bindActionCreators(resolutionActionCreators, dispatch), fileActions: bindActionCreators(fileActionCreators, dispatch) })
-)(Download);
+)(Download));

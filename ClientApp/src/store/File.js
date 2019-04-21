@@ -1,5 +1,6 @@
 const setFileName = 'SET_FILE_NAME';
 const setFileFormat = 'SET_FILE_FORMAT';
+const setFileAvailable = 'SET_FILE_AVAILABLE';
 
 export const possibleFormats = [
     {
@@ -36,14 +37,16 @@ export const possibleFormats = [
 ].map(f => ({ ...f, disabled: !MediaRecorder.isTypeSupported(f.value) }));
 
 const initialState = { 
-    name: 'screen-recording', 
+    name: 'screen-recording-' + (new Date().toISOString()).split('T')[0], 
     format: possibleFormats.find(f => !f.disabled).value,
-    extension: 'webm' 
+    extension: 'webm',
+    fileAvailable: false
 };
 
 export const actionCreators = {
     setFileName: fileName => ({ type: setFileName, fileName }),
-    setFileFormat: fileFormat => ({ type: setFileFormat, fileFormat })
+    setFileFormat: fileFormat => ({ type: setFileFormat, fileFormat }),
+    setFileAvailable: value => ({ type: setFileAvailable, value })
 };
 
 export const reducer = (state, action) => {
@@ -55,6 +58,10 @@ export const reducer = (state, action) => {
 
     if (action.type === setFileFormat) {
         return { ...state, format: action.fileFormat, extension: possibleFormats.find(f => f.value === action.fileFormat).extension };
+    }
+
+    if (action.type === setFileAvailable) {
+        return { ...state, fileAvailable: action.value };
     }
 
     return state;
