@@ -6,7 +6,7 @@ import { actionCreators as resolutionActionCreators, resolutions } from '../stor
 import { actionCreators as fileActionCreators } from '../store/File';
 import { VideoStorage } from '../store/VideoStorage';
 import { Advertisement, Button, Divider, Form, Grid, Header, Icon, Input, Radio, Responsive, Segment, Statistic } from 'semantic-ui-react/dist/commonjs';
-import prettyBytes from 'pretty-bytes';
+import filesize from 'filesize';
 import config from '../config';
 
 export class Download extends Component {
@@ -97,7 +97,7 @@ export class Download extends Component {
                   </Statistic>
                   <Statistic>
                     <Statistic.Label>Size</Statistic.Label>
-                    <Statistic.Value>{prettyBytes(VideoStorage.size)}</Statistic.Value>
+                    <Statistic.Value>{filesize(VideoStorage.size)}</Statistic.Value>
                   </Statistic>
             </Statistic.Group>
             <Header>File name</Header>
