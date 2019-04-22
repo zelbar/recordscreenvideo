@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Icon, Link } from 'semantic-ui-react/dist/commonjs';
+import { Button, Icon } from 'semantic-ui-react/dist/commonjs';
 import config from '../config';
 
 const providers = [
@@ -33,7 +33,7 @@ const providers = [
 const Social = props => (
     <div>
         {providers.map(p =>
-            <a href={p.link}>
+            <a href={p.link} key={p.id}>
                 <Button icon color={p.id}>
                     <Icon name={p.id}></Icon>
                 </Button>
