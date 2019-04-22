@@ -20,7 +20,7 @@ class Record extends Component {
     handleSetFileFormat = (event, { value }) => this.props.fileActions.setFileFormat(value);
 
     checkBrowserSupport() {
-        return navigator.getDisplayMedia || navigator.mediaDevices.getDisplayMedia || navigator.mediaDevices.getUserMedia;
+        return navigator.getDisplayMedia || navigator.mediaDevices.getDisplayMedia;
     }
 
     setSupportedFeatures() {
@@ -44,8 +44,6 @@ class Record extends Component {
             return navigator.getDisplayMedia({ video: videoParams });
         } else if (navigator.mediaDevices.getDisplayMedia) {
             return navigator.mediaDevices.getDisplayMedia({ video: videoParams });
-        } else {
-            return navigator.mediaDevices.getUserMedia({ video: { mediaSource: 'screen' } });
         }
     }
 
@@ -120,7 +118,10 @@ class Record extends Component {
                         {this.props.showBrowserUnsupported &&
                             <Message negative>
                                 <Message.Header>Browser not supported</Message.Header>
-                                <p>Screen recording is supported by modern desktop browsers. Mobile browsers are currently not supported.</p>
+                                <p>
+                                    Use Chrome or Firefox desktop browsers.<br />
+                                    Mobile browsers currently not supported.
+                                </p>
                             </Message>}
 
                         {this.props.errormessage &&
