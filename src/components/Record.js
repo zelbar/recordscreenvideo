@@ -69,17 +69,12 @@ class Record extends Component {
             this.props.recordingActions.consentDim(false);
         }
 
-        const track = this.stream.getTracks()[0];
-        const { width, height } = track.getSettings();
-        this.props.resolutionActions.setWidth(width);
-        this.props.resolutionActions.setHeight(height);
-
         this.props.recordingActions.startRecording();
 
-        console.log('Start capturing.');
+        console.log('Start recording.');
 
         this.stream.addEventListener('inactive', e => {
-            console.log('Capture stream inactive - stop recording!');
+            console.log('Stream recording inactive - stop recording!');
             this._stopCapturing(e);
         });
         this.mediaRecorder = new MediaRecorder(this.stream, { mimeType: this.props.format });
@@ -95,8 +90,13 @@ class Record extends Component {
     _stopCapturing = async (e) => {
         if (!this.mediaRecorder) return;
 
-        console.log('Stop capturing.');
+        console.log('Stop recording.');
         this.props.recordingActions.stopRecording();
+
+        const track = this.stream.getTracks()[0];
+        const { width, height } = track.getSettings();
+        this.props.resolutionActions.setWidth(width);
+        this.props.resolutionActions.setHeight(height);
 
         this.mediaRecorder.stop();
         this.mediaRecorder = null;
