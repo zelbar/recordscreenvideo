@@ -205,7 +205,7 @@ class Record extends Component {
                     <Header icon='info' content='Recording area and consent' />
                     <Modal.Content>
                         <Grid centered>
-                            Please select the area you want to record and allow screen recording
+                            Please pick the area you want to record and allow the app to see it
                         </Grid>
                     </Modal.Content>
                 </Modal>
