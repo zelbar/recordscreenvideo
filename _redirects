@@ -1,6 +1,10 @@
 /* /index.html 200
 
 # Redirect domain aliases to primary domain
-https://recordscreenvideo.com/* https://www.recordscreenvideo.com/:splat 301!
+http://recordscreen.video/* https://www.recordscreenvideo.com/:splat 301!
+http://recordscreen.video/* https://www.recordscreenvideo.com/:splat 301!
+http://www.recordscreen.video/* https://www.recordscreenvideo.com/:splat 301!
+
+https://recordscreen.video/* https://www.recordscreenvideo.com/:splat 301!
 https://recordscreen.video/* https://www.recordscreenvideo.com/:splat 301!
 https://www.recordscreen.video/* https://www.recordscreenvideo.com/:splat 301!
