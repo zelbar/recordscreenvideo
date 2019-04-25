@@ -116,7 +116,7 @@ class Record extends Component {
                 <Grid centered>
                     <div>
                         <Grid.Column></Grid.Column>
-                        <Header>Record computer screen video online</Header>
+                        <Header as='h1'>Record computer screen video online</Header>
                         <p>Free, fast &amp; easy video capture - no additional software required<br />
                             Works on PC with Windows, Mac and Linux OS in modern web browsers</p>
                     </div>
@@ -208,12 +208,10 @@ class Record extends Component {
                         </Grid.Row>}
                 </Grid>
 
-                <Modal open={this.props.recordingConsentDim} basic size='small'>
-                    <Header icon='info' content='Recording area and consent' />
+                <Modal open={this.props.recordingConsentDim} basic size='tiny' centered={true}>
+                    <Header as='h2' icon='info' content='Recording area and consent' />
                     <Modal.Content>
-                        <Grid centered>
-                            Please pick the area you want to record and allow the app to see it
-                        </Grid>
+                        Please pick the area you want to record and allow the app to see it
                     </Modal.Content>
                 </Modal>
 

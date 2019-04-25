@@ -35,7 +35,7 @@ export class Download extends Component {
         <Grid.Column width={config.showAds ? 6 : 16}>
           {config.showResolutionPicker && 
           <Segment>
-            <Header>Resolution</Header>
+            <Header as='h3'>Resolution</Header>
             <Form>
               <Form.Group>
                 <Input
@@ -73,7 +73,7 @@ export class Download extends Component {
             </Form>
           </Segment>}
           <Segment>
-            <Header>Video properties</Header>
+            <Header as='h3'>Video properties</Header>
             <Statistic.Group widths={5} size='mini'>
               <Statistic>
                 <Statistic.Label>Width</Statistic.Label>
@@ -101,7 +101,7 @@ export class Download extends Component {
                 <Statistic.Value>{filesize(VideoStorage.size)}</Statistic.Value>
               </Statistic>
             </Statistic.Group>
-            <Header>File name</Header>
+            <Header as='h3'>File name</Header>
             <Input
               value={this.props.file.name}
               onChange={this.handleSetFileName}
