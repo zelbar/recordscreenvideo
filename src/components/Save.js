@@ -9,22 +9,22 @@ import { Advertisement, Button, Divider, Form, Grid, Header, Icon, Input, Radio,
 import filesize from 'filesize';
 import config from '../config';
 
-export class Download extends Component {
+export class Save extends Component {
   handleSetResolution = (evt, { value }) => this.props.resolutionActions.setResolution(parseInt(value, 10));
   handleSetWidth = (evt, { value }) => this.props.resolutionActions.setWidth(parseInt(value, 10));
   handleSetHeight = (evt, { value }) => this.props.resolutionActions.setHeight(parseInt(value, 10));
   handleSetFileName = (evt, { value }) => this.props.fileActions.setFileName(value);
-  downloadRecording = () => {
-    console.log('Download recording.');
+  SaveRecording = () => {
+    console.log('Save recording.');
 
-    const downloadLink = document.createElement('a');
-    downloadLink.addEventListener('progress', e => console.log(e));
-    downloadLink.href = VideoStorage.objectUrl;
-    downloadLink.style = 'display: none';
-    downloadLink.setAttribute('download', `${this.props.file.name}.${this.props.file.extension}`);
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
+    const SaveLink = document.createElement('a');
+    SaveLink.addEventListener('progress', e => console.log(e));
+    SaveLink.href = VideoStorage.objectUrl;
+    SaveLink.style = 'display: none';
+    SaveLink.setAttribute('Save', `${this.props.file.name}.${this.props.file.extension}`);
+    document.body.appendChild(SaveLink);
+    SaveLink.click();
+    document.body.removeChild(SaveLink);
 
     //this.props.history.push('/share');
   };
@@ -117,11 +117,11 @@ export class Download extends Component {
               icon
               disabled={VideoStorage.size === 0}
               labelPosition='right'
-              color='green'
+              color='blue'
               size='massive'
-              onClick={this.downloadRecording}>
+              onClick={this.SaveRecording}>
               <Icon name='download' />
-              Download
+              Save video file
             </Button>}
           {config.showAds && <div>
             <Divider />
@@ -153,4 +153,4 @@ export class Download extends Component {
 export default withRouter(connect(
   state => ({ resolution: state.resolution, file: state.file }),
   dispatch => ({ resolutionActions: bindActionCreators(resolutionActionCreators, dispatch), fileActions: bindActionCreators(fileActionCreators, dispatch) })
-)(Download));
+)(Save));
