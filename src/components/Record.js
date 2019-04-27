@@ -20,7 +20,7 @@ class Record extends Component {
     handleSetFileFormat = (event, { value }) => this.props.fileActions.setFileFormat(value);
 
     checkBrowserSupport() {
-        return navigator.getDisplayMedia || navigator.mediaDevices.getDisplayMedia;
+        return window.MediaRecorder && (navigator.getDisplayMedia || navigator.mediaDevices.getDisplayMedia);
     }
 
     setSupportedFeatures() {

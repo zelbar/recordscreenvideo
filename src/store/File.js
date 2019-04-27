@@ -34,7 +34,7 @@ export const possibleFormats = [
         value: 'video/x-matroska;codecs=avc1',
         extension: 'mkv'
     }
-].map(f => ({ ...f, disabled: !MediaRecorder.isTypeSupported(f.value) }));
+].map(f => ({ ...f, disabled: window.MediaRecorder && !window.MediaRecorder.isTypeSupported(f.value) }));
 
 const initialState = { 
     name: 'screen-recording-' + (new Date().toISOString()).split('T')[0], 
