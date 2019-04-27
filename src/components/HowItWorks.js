@@ -11,7 +11,7 @@ const HowItWorks = props => (
         <Item>
           <Item.Image src='/images/video-format-select.png' />
           <Item.Content>
-            <Item.Header as='h4'>Select video format &amp; codec (optional).</Item.Header>
+            <Item.Header as='h4'>Select video format &amp; codec (optional)</Item.Header>
             <Item.Description>
               <p>Click the select box and pick desired video format and codec.</p>
               <p>You can also leave the default value.</p>
@@ -85,7 +85,7 @@ const HowItWorks = props => (
             <Item.Header as='h4'>Name video and save file</Item.Header>
             <Item.Description>
               <p>Video properties are shown.</p>
-              <p>Set the file name for the video (optional).</p>
+              <p>Set the file name for the video (or leave default).</p>
               <p>Click the 'Save video file' button.</p>
             </Item.Description>
           </Item.Content>
