@@ -1,6 +1,6 @@
 {
-  "name": "recordscreen",
-  "version": "0.1.0",
+  "name": "recordscreenvideo",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "filesize": "^4.1.2",
