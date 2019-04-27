@@ -118,7 +118,7 @@ class Record extends Component {
                         <Grid.Column></Grid.Column>
                         <Header as='h1'>Record computer screen video online</Header>
                         <p>Free, fast &amp; easy video capture - no additional software required<br />
-                            Works on PC with Windows, Mac, Linux, Chromebook OS and web browser</p>
+                            Works on PC with Windows, Mac, Linux, Chromebook OS in web browser</p>
                     </div>
                     <Grid.Row>
                         {this.props.showBrowserUnsupported &&
