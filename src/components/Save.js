@@ -21,7 +21,7 @@ export class Save extends Component {
     SaveLink.addEventListener('progress', e => console.log(e));
     SaveLink.href = VideoStorage.objectUrl;
     SaveLink.style = 'display: none';
-    SaveLink.setAttribute('Save', `${this.props.file.name}.${this.props.file.extension}`);
+    SaveLink.setAttribute('download', `${this.props.file.name}.${this.props.file.extension}`);
     document.body.appendChild(SaveLink);
     SaveLink.click();
     document.body.removeChild(SaveLink);
