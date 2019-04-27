@@ -114,8 +114,8 @@ class Record extends Component {
         return (
             <div>
                 <Grid centered>
+                    <Grid.Row>
                     <div>
-                        <Grid.Column></Grid.Column>
                         <Header as='h1'>Record computer screen video online</Header>
                         <p>
                             Free, fast &amp; easy screen capture - no additional software download required<br />
@@ -123,6 +123,7 @@ class Record extends Component {
                             Privacy in mind - videos do not get uploaded and the app works offline
                         </p>
                     </div>
+                    </Grid.Row>
                     <Grid.Row>
                         {this.props.showBrowserUnsupported &&
                             <Message negative>
