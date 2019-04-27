@@ -11,30 +11,27 @@ const Faq = props => (
           Any desktop operating system with a modern web browser is supported.
         </p>
         <p>
-          Currently supported browsers
+          Currently supported browsers</p>
           <List bulleted>
             <List.Item>Chrome or Chromium based browser</List.Item>
             <List.Item>Firefox</List.Item>
           </List>
-        </p>
         <p>Only desktop browsers are supported. Mobile browsers and operating systems are currently not supported.</p>
       </Grid.Column>
       <Grid.Column>
         <Header as='h4'>Which video formats and codecs are supported?</Header>
-        <p>Supported video formats
+        <p>Supported video formats</p>
             <List bulleted>
             <List.Item>WebM</List.Item>
             <List.Item>Matroska (Chrome)</List.Item>
           </List>
-        </p>
-        <p>Supported video codecs
+        <p>Supported video codecs</p>
             <List bulleted>
             <List.Item>VP8</List.Item>
             <List.Item>VP9</List.Item>
             <List.Item>AVC (Advanced Video Codec)</List.Item>
             <List.Item>H.264</List.Item>
           </List>
-        </p>
       </Grid.Column>
       <Grid.Column>
         <Header as='h4'>Why can't I select some video formats?</Header>
