@@ -2,6 +2,7 @@
     "publicUrl": "https://www.recordscreenvideo.com/",
     "showCursorOptions": false,
     "showVideoFormat": true,
+    "showMicrophoneAudio": true,
     "showResolutionPicker": false,
     "showShareStep": false,
     "showAds": false
