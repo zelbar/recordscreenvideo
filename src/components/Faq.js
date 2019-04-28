@@ -15,8 +15,9 @@ const Faq = props => (
           <List bulleted>
             <List.Item>Chrome or Chromium based browser</List.Item>
             <List.Item>Firefox</List.Item>
+            <List.Item>Opera</List.Item>
           </List>
-        <p>Only desktop browsers are supported. Mobile browsers and operating systems are currently not supported.</p>
+        <p>Only recent versions of desktop browsers are supported. Mobile browsers and operating systems are currently not supported.</p>
       </Grid.Column>
       <Grid.Column>
         <Header as='h4'>Which video formats and codecs are supported?</Header>
