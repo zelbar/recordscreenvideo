@@ -39,8 +39,8 @@ const Faq = props => (
         <p>Only formats supported by your web browser can be selected. Video format and codec support vary by web browser and version.</p>
       </Grid.Column>
       <Grid.Column>
-        <Header as='h4'>Why is there no audio?</Header>
-        <p>Audio recording is not supported at the moment.</p>
+        <Header as='h4'>Why is there no audio from my OS in the recording?</Header>
+        <p>OS-level audio recording is not supported at the moment. However, you can include audio from your microphone in the screen recording video.</p>
       </Grid.Column>
       <Grid.Column>
         <Header as='h4'>I'm concerned about privacy. Where are videos stored and who can access them?</Header>
