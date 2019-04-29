@@ -9,18 +9,12 @@ import config from '../config';
 class Steps extends Component {
     componentDidMount() {
         // This method is called when the component is first added to the document
-        //this.ensureDataFetched();
     }
 
     componentDidUpdate() {
         // This method is called when the route parameters change
-        //this.ensureDataFetched();
     }
-
-    ensureDataFetched() {
-        //const startDateIndex = parseInt(this.props.match.params.startDateIndex, 10) || 0;
-    }
-
+    
     render() {
         return (
             <div>
