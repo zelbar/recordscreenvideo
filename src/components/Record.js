@@ -161,8 +161,8 @@ class Record extends Component {
                             <Message negative>
                                 <Message.Header>Browser not supported</Message.Header>
                                 <p>
-                                    Use Chrome or Firefox desktop browsers.<br />
-                                    Mobile browsers currently not supported.
+                                    Try Chrome, Firefox or Opera desktop browser.<br />
+                                    Mobile browsers are currently not supported.
                                 </p>
                             </Message>}
 
