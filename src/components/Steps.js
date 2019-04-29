@@ -19,7 +19,6 @@ class Steps extends Component {
 
     ensureDataFetched() {
         //const startDateIndex = parseInt(this.props.match.params.startDateIndex, 10) || 0;
-        //this.props.requestWeatherForecasts(startDateIndex);
     }
 
     render() {

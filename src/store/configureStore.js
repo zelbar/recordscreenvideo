@@ -4,14 +4,12 @@ import { routerReducer, routerMiddleware } from 'react-router-redux';
 import * as Recording from './Recording';
 import * as Resolution from './Resolution';
 import * as File from './File';
-import * as WeatherForecasts from './WeatherForecasts';
 
 export default function configureStore (history, initialState) {
   const reducers = {
     recording: Recording.reducer,
     resolution: Resolution.reducer,
-    file: File.reducer,
-    weatherForecasts: WeatherForecasts.reducer
+    file: File.reducer
   };
 
   const middleware = [
