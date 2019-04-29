@@ -21,6 +21,17 @@ const HowItWorks = props => (
           </Item>
 
           <Item>
+            <Item.Image src='/images/record-microphone-audio.png' />
+            <Item.Content>
+              <Item.Header as='h4'>Record microphone audio (optional)</Item.Header>
+              <Item.Description>
+                <p>Tick the 'Record microphone audio' checkbox if you want to include audio from your microphone in the recording.</p>
+                <p>When starting the screen recording, you will have to allow the app to use your microphone.</p>
+              </Item.Description>
+            </Item.Content>
+          </Item>
+
+          <Item>
             <Item.Image src='/images/start-button.png' />
             <Item.Content>
               <Item.Header as='h4'>Start recording</Item.Header>
