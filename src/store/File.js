@@ -1,6 +1,7 @@
 const setFileName = 'SET_FILE_NAME';
 const setFileFormat = 'SET_FILE_FORMAT';
 const setFileAvailable = 'SET_FILE_AVAILABLE';
+const setRecordMicrophoneAudio = 'SET_RECORD_MICROPHONE_AUDIO';
 
 export const possibleFormats = [
     {
@@ -40,13 +41,15 @@ const initialState = {
     name: 'screen-recording-' + (new Date().toISOString()).split('T')[0], 
     format: possibleFormats.find(f => !f.disabled).value,
     extension: 'webm',
+    recordMicrophoneAudio: false,
     fileAvailable: false
 };
 
 export const actionCreators = {
     setFileName: fileName => ({ type: setFileName, fileName }),
     setFileFormat: fileFormat => ({ type: setFileFormat, fileFormat }),
-    setFileAvailable: value => ({ type: setFileAvailable, value })
+    setFileAvailable: value => ({ type: setFileAvailable, value }),
+    setRecordMicrophoneAudio: value => ({ type: setRecordMicrophoneAudio, value })
 };
 
 export const reducer = (state, action) => {
@@ -62,6 +65,10 @@ export const reducer = (state, action) => {
 
     if (action.type === setFileAvailable) {
         return { ...state, fileAvailable: action.value };
+    }
+
+    if (action.type === setRecordMicrophoneAudio) {
+        return { ...state, recordMicrophoneAudio: action.value };
     }
 
     return state;

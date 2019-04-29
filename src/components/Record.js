@@ -18,7 +18,7 @@ class Record extends Component {
     state = { cursorOption: cursorOptions[0].id, recordUserAudio: false }
     handleSetCursorOption = (event, { value }) => this.setState({ cursorOption: value });
     handleSetFileFormat = (event, { value }) => this.props.fileActions.setFileFormat(value);
-    handleSetRecordUserAudio = (event, { checked }) => this.setState({ recordUserAudio: checked });
+    handleSetRecordUserAudio = (event, { checked }) => this.props.fileActions.setRecordMicrophoneAudio(checked);
 
     checkBrowserSupport() {
         return window.MediaRecorder && (navigator.getDisplayMedia || navigator.mediaDevices.getDisplayMedia);
@@ -68,7 +68,7 @@ class Record extends Component {
 
         this.props.recordingActions.consentDim(true);
 
-        if (this.state.recordUserAudio) {
+        if (this.props.recordMicrophoneAudio) {
             try {
                 this.userStream = await this._startUserMediaCapture();
             } catch (ex) {
@@ -201,7 +201,7 @@ class Record extends Component {
                                     <Form.Checkbox
                                         label='Record microphone audio'
                                         onChange={this.handleSetRecordUserAudio}
-                                        checked={this.state.recordUserAudio}
+                                        checked={this.props.recordMicrophoneAudio}
                                     />}
                                 <Divider />
                                 <Grid.Row>
