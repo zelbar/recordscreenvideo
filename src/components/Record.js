@@ -200,6 +200,7 @@ class Record extends Component {
                                 {config.showMicrophoneAudio &&
                                     <Form.Checkbox
                                         label='Record microphone audio'
+                                        disabled={this.props.enableStopCapture}
                                         onChange={this.handleSetRecordUserAudio}
                                         checked={this.props.recordMicrophoneAudio}
                                     />}
