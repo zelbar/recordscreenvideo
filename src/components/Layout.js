@@ -5,7 +5,7 @@ import Footer from './Footer';
 import { withRouter } from 'react-router-dom';
 import { Container, Grid } from 'semantic-ui-react/dist/commonjs';
 
-export default withRouter(props => (
+const Layout = props => (
   <Grid>
     <Grid.Column mobile={16} tablet={16} computer={16}>
       <Steps />
@@ -26,4 +26,6 @@ export default withRouter(props => (
       <Footer />
     </Grid.Column>
   </Grid>
-));
+);
+
+export default withRouter(Layout);
