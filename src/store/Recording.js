@@ -51,7 +51,7 @@ export const reducer = (state, action) => {
     }
 
     if (action.type === errorOccurred) {
-        return { ...state, recordingConsentDim: false, errorMessage: action.message };
+        return { ...state, recordingConsentDim: false, errorMessage: action.errorMessage };
     }
 
     if (action.type === closeError) {
