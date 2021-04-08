@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header } from 'semantic-ui-react/dist/commonjs';
 
-const Privacy = props => (
+const Privacy = () => (
   <div>
     <Header as='h1'>Privacy</Header>
     <Header as='h2'>Video privacy</Header>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Header, List } from 'semantic-ui-react/dist/commonjs';
 
-const Faq = props => (
+const Faq = () => (
   <div>
     <Header as='h1'>Frequently asked questions</Header>
     <Grid relaxed stackable columns={2}>

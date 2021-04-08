@@ -2,7 +2,7 @@ import React from 'react';
 import { VideoStorage } from '../store/VideoStorage';
 import './replay.css';
 
-const Replay = props => (
+const Replay = () => (
   <div>
     <video src={VideoStorage.objectUrl} autoPlay controls loop />
   </div>

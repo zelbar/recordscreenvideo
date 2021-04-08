@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router';
 
-const RedirectToRecord = props => (
+const RedirectToRecord = () => (
     <Redirect to='/record' />
 );
 

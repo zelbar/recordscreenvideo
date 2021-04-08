@@ -30,7 +30,7 @@ const providers = [
     }
 ]
 
-const Social = props => (
+const Social = () => (
     <div>
         {providers.map(p =>
             <a href={p.link} key={p.id}>
