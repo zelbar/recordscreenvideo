@@ -1,5 +1,5 @@
 import React from 'react';
-import { VideoStorage } from '../store/VideoStorage';
+import { VideoStorage } from '../services/VideoStorage';
 import './replay.css';
 
 const Replay = () => (

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { actionCreators as resolutionActionCreators, resolutions } from '../store/Resolution';
 import { actionCreators as fileActionCreators } from '../store/File';
-import { VideoStorage } from '../store/VideoStorage';
+import { VideoStorage } from '../services/VideoStorage';
 import { Advertisement, Button, Divider, Form, Grid, Header, Icon, Input, Radio, Responsive, Segment, Statistic } from 'semantic-ui-react/dist/commonjs';
 import filesize from 'filesize';
 import config from '../config';
