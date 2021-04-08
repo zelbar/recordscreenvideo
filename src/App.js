@@ -10,7 +10,7 @@ import HowItWorks from './components/HowItWorks';
 import Faq from './components/Faq';
 import Privacy from './components/Privacy';
 
-export default () => (
+const App = () => (
   <Layout>
     <Route exact path='/record' component={Record} />
     <Route exact path='/' component={RedirectToRecord} />
@@ -22,3 +22,5 @@ export default () => (
     <Route exact path='/privacy' component={Privacy} />
   </Layout>
 );
+
+export default App;
