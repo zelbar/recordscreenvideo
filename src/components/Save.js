@@ -26,119 +26,112 @@ const Save = props => {
     document.body.removeChild(SaveLink);
   };
   return (
-    <Grid stackable relaxed='very'>
-      <Grid.Column width={config.showAds ? 6 : 16}>
-        {config.showResolutionPicker &&
-          <Segment>
-            <Header as='h3'>Resolution</Header>
-            <Form>
-              <Form.Group>
-                <Input
-                  value={props.resolution.width}
-                  onChange={handleSetWidth}
-                  type='number'
-                  size='mini'
-                  icon='arrows alternate horizontal'
-                  iconPosition='left'
-                  placeholder='1920'
-                />
-                <Input
-                  value={props.resolution.height}
-                  onChange={handleSetHeight}
-                  type='number'
-                  size='mini'
-                  icon='arrows alternate vertical'
-                  iconPosition='left'
-                  placeholder='1080'
-                />
-              </Form.Group>
-            </Form>
-            <Divider horizontal>Standard formats</Divider>
-            <Form>
-              {resolutions.map(res =>
-                <Form.Field key={res.id}>
-                  <Radio
-                    label={res.label}
-                    name='resolutionId'
-                    value={res.id}
-                    checked={res.id === props.resolution.id}
-                    onChange={handleSetResolution}
+    <Grid centered>
+      <Grid.Row>
+        <Grid.Column width={16}>
+          {config.showResolutionPicker &&
+            <Segment>
+              <Header as='h3'>Resolution</Header>
+              <Form>
+                <Form.Group>
+                  <Input
+                    value={props.resolution.width}
+                    onChange={handleSetWidth}
+                    type='number'
+                    size='mini'
+                    icon='arrows alternate horizontal'
+                    iconPosition='left'
+                    placeholder='1920'
                   />
-                </Form.Field>)}
-            </Form>
-          </Segment>}
-        <Segment>
-          <Header as='h3'>Video properties</Header>
-          <Statistic.Group widths={5} size='mini'>
-            <Statistic>
-              <Statistic.Label>Width</Statistic.Label>
-              <Statistic.Value>{props.resolution.width}</Statistic.Value>
-            </Statistic>
-            <Statistic>
-              <Statistic.Label>Height</Statistic.Label>
-              <Statistic.Value>{props.resolution.height}</Statistic.Value>
-            </Statistic>
-            <Statistic>
-              <Statistic.Label>Format</Statistic.Label>
-              <Statistic.Value>
-                {VideoStorage.type && VideoStorage.type.split('/')[1].split(';')[0]}
-              </Statistic.Value>
-            </Statistic>
-            <Statistic>
-              <Statistic.Label>Codec</Statistic.Label>
-              <Statistic.Value>
-                {VideoStorage.type && VideoStorage.type.includes('=') ?
-                  VideoStorage.type.split('/')[1].split(';')[1].split('=')[1] : 'default'}
-              </Statistic.Value>
-            </Statistic>
-            <Statistic>
-              <Statistic.Label>Size</Statistic.Label>
-              <Statistic.Value>{filesize(VideoStorage.size)}</Statistic.Value>
-            </Statistic>
-          </Statistic.Group>
-          <Header as='h3'>File name</Header>
-          <Input
-            value={props.file.name}
-            onChange={handleSetFileName}
+                  <Input
+                    value={props.resolution.height}
+                    onChange={handleSetHeight}
+                    type='number'
+                    size='mini'
+                    icon='arrows alternate vertical'
+                    iconPosition='left'
+                    placeholder='1080'
+                  />
+                </Form.Group>
+              </Form>
+              <Divider horizontal>Standard formats</Divider>
+              <Form>
+                {resolutions.map(res =>
+                  <Form.Field key={res.id}>
+                    <Radio
+                      label={res.label}
+                      name='resolutionId'
+                      value={res.id}
+                      checked={res.id === props.resolution.id}
+                      onChange={handleSetResolution}
+                    />
+                  </Form.Field>)}
+              </Form>
+            </Segment>}
+          <Segment>
+            <Header as='h3'>Video properties</Header>
+            <Statistic.Group widths={5} size='mini'>
+              <Statistic>
+                <Statistic.Label>Width</Statistic.Label>
+                <Statistic.Value>{props.resolution.width}</Statistic.Value>
+              </Statistic>
+              <Statistic>
+                <Statistic.Label>Height</Statistic.Label>
+                <Statistic.Value>{props.resolution.height}</Statistic.Value>
+              </Statistic>
+              <Statistic>
+                <Statistic.Label>Format</Statistic.Label>
+                <Statistic.Value>
+                  {VideoStorage.type && VideoStorage.type.split('/')[1].split(';')[0]}
+                </Statistic.Value>
+              </Statistic>
+              <Statistic>
+                <Statistic.Label>Codec</Statistic.Label>
+                <Statistic.Value>
+                  {VideoStorage.type && VideoStorage.type.includes('=') ?
+                    VideoStorage.type.split('/')[1].split(';')[1].split('=')[1] : 'default'}
+                </Statistic.Value>
+              </Statistic>
+              <Statistic>
+                <Statistic.Label>Size</Statistic.Label>
+                <Statistic.Value>{filesize(VideoStorage.size)}</Statistic.Value>
+              </Statistic>
+            </Statistic.Group>
+            <Header as='h3'>File name</Header>
+            <Input
+              value={props.file.name}
+              onChange={handleSetFileName}
+              fluid
+              type='text'
+              label={{ basic: true, content: `.${props.file.extension}` }}
+              labelPosition='right'
+            />
+          </Segment>
+          <Button
             fluid
-            type='text'
-            label={{ basic: true, content: `.${props.file.extension}` }}
+            icon
+            disabled={VideoStorage.size === 0}
             labelPosition='right'
-          />
-        </Segment>
-        <Button
-          fluid
-          icon
-          disabled={VideoStorage.size === 0}
-          labelPosition='right'
-          color='blue'
-          size='massive'
-          onClick={SaveRecording}>
-          <Icon name='download' />
+            color='blue'
+            size='massive'
+            onClick={SaveRecording}>
+            <Icon name='download' />
             Save video file
           </Button>
-        {config.showAds && <div>
-          <Divider />
-          <Responsive {...Responsive.onlyComputer}>
-            <Advertisement centered unit='medium rectangle' test='Medium Rectangle' />
-          </Responsive>
-          <Responsive {...Responsive.onlyTablet}>
-            <Advertisement centered unit='small rectangle' test='Small Mobile Rectangle' />
-          </Responsive>
-        </div>}
-      </Grid.Column>
+        </Grid.Column>
+      </Grid.Row>
       {config.showAds &&
-        <Grid.Column width={10}>
+        <Grid.Row>
           <Responsive {...Responsive.onlyComputer}>
-            <Advertisement centered unit='netboard' test='Computer Netboard #2' />
+            <Advertisement centered unit='billboard' test='Computer Billboard #2' />
           </Responsive>
           <Responsive {...Responsive.onlyTablet}>
-            <Advertisement centered unit='large rectangle' test='Large Tablet Rectangle' />
+            <Advertisement centered unit='large rectangle' test='Large Tablet Rectangle #2' />
           </Responsive>
           <Responsive {...Responsive.onlyMobile}>
-            <Advertisement centered unit='half banner' test='Half Mobile Banner' />
+            <Advertisement unit='mobile banner' test='Mobile Banner #1' />
           </Responsive>
-        </Grid.Column>}
+        </Grid.Row>}
     </Grid>
   );
 }
