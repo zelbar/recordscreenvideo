@@ -40,7 +40,7 @@ const Faq = () => (
       </Grid.Column>
       <Grid.Column>
         <Header as='h4'>Why is there no audio in the recording?</Header>
-        <p>System or browser tab audio recording is supported only by Chromium-based browsers. To record audio, make sure you enable the <strong>Share audio</strong> option when picking the content you want to record.</p>
+        <p>Audio recording is supported only by Chromium-based browsers when recording a screen or browser tab. To record audio, make sure you enable the <strong>Share audio</strong> option when picking the content you want to record.</p>
       </Grid.Column>
       <Grid.Column>
         <Header as='h4'>Can I include my microphone audio in the recording?</Header>
