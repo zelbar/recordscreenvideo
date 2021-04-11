@@ -38,7 +38,7 @@ const HowItWorks = props => (
                 <p>Your browser will ask you which screen, application window or browser tab you want to share - this will be the recording area for your video.</p>
                 <p>The video resolution will match the recording area.</p>
                 <p>Enable the 'Share audio' option to include audio (if sharing a screen or browser tab).</p>
-                <p>Click the 'Share' button</p>
+                <p>Click the 'Share' button.</p>
               </Item.Description>
             </Item.Content>
           </Item>
