@@ -8,12 +8,7 @@ class VideoRecorder {
             video: false
         };
 
-        if (navigator.getUserMedia) {
-            return new Promise((resolve, reject) =>
-                navigator.getUserMedia(constraints, resolve, reject));
-        } else if (navigator.mediaDevices.getUserMedia) {
-            return navigator.mediaDevices.getUserMedia(constraints);
-        }
+        return navigator.mediaDevices.getUserMedia(constraints);
     }
 
     _startDisplayMediaCapture() {
@@ -25,11 +20,7 @@ class VideoRecorder {
             },
             video: true,
         }
-        if (navigator.getDisplayMedia) {
-            return navigator.getDisplayMedia(constraints);
-        } else if (navigator.mediaDevices.getDisplayMedia) {
-            return navigator.mediaDevices.getDisplayMedia(constraints);
-        }
+        return navigator.mediaDevices.getDisplayMedia(constraints);
     }
 
     async start(options) {
@@ -92,7 +83,7 @@ class VideoRecorder {
         if (this.userMediaStream) {
             this.userMediaStream.getTracks().forEach(track => track.stop());
         }
-        
+
         console.log('Stoped recording.');
 
         this.displayStream.removeEventListener('inactive', this.stopCallback);
