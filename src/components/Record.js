@@ -113,7 +113,6 @@ const Record = props => {
                                     onChange={handleSetRecordUserAudio}
                                     checked={props.recordMicrophoneAudio}
                                 />}
-                            <Divider />
                             <Grid.Row>
                                 {props.enableStartCapture &&
                                     <Button
