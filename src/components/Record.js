@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Advertisement, Button, Divider, Form, Grid, Header, Icon, Message, Modal, Radio, Responsive, Segment } from 'semantic-ui-react/dist/commonjs';
+import { Advertisement, Button, Form, Grid, Header, Icon, Message, Modal, Radio, Responsive, Segment } from 'semantic-ui-react/dist/commonjs';
 import { actionCreators as fileActionCreators, possibleFormats } from '../store/File';
 import { actionCreators as recordingActionCreators } from '../store/Recording';
 import { actionCreators as resolutionActionCreators } from '../store/Resolution';
