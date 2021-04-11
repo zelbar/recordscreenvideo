@@ -62,7 +62,7 @@ class VideoRecorder {
             ...this.displayStream.getTracks(),
         ];
         if (this.userMediaStream) {
-            this.userMediaStream.foreach(track => this.combinedStream.push(track));
+            this.userMediaStream.getAudioTracks.forEach(track => this.combinedStream.push(track));
         }
 
         this.mediaStream = new MediaStream(this.combinedStream);
