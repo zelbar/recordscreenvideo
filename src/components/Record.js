@@ -43,7 +43,7 @@ const Record = props => {
     function handleStopRecording() {
         VideoRecorder.stop().then(data => {
             props.recordingActions.stopRecording();
-        
+
             if (data) {
                 props.resolutionActions.setWidth(data.dimensions.width);
                 props.resolutionActions.setHeight(data.dimensions.height);
@@ -154,11 +154,14 @@ const Record = props => {
                     </Grid.Row>}
             </Grid>
 
-            <Modal open={props.recordingConsentDim} basic size='tiny' centered={true}>
-                <Header as='h2' icon='info' content='Recording area and consent' />
+            <Modal open={props.recordingConsentDim} basic dimmer='blurring' size='tiny'>
+                <Header as='h2'>
+                    <Icon name='info' />
+                    Recording content and audio
+                </Header>
                 <Modal.Content>
-                    Please pick the area you want to record and allow the app to see it
-                    </Modal.Content>
+                    Please share the screen content and audio you want to record
+                </Modal.Content>
             </Modal>
 
         </div>
