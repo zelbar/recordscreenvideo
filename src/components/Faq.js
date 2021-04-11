@@ -13,7 +13,7 @@ const Faq = () => (
         <p>
           Currently supported browsers</p>
           <List bulleted>
-            <List.Item>Chrome or Chromium based browser</List.Item>
+            <List.Item>Chromium based browsers (e.g. Chrome, Edge)</List.Item>
             <List.Item>Firefox</List.Item>
             <List.Item>Opera</List.Item>
           </List>
@@ -39,8 +39,12 @@ const Faq = () => (
         <p>Only formats supported by your web browser can be selected. Video format and codec support vary by web browser and version.</p>
       </Grid.Column>
       <Grid.Column>
-        <Header as='h4'>Why is there no audio from my OS in the recording?</Header>
-        <p>OS-level audio recording is not supported at the moment. However, you can include audio from your microphone in the screen recording video.</p>
+        <Header as='h4'>Why is there no audio in the recording?</Header>
+        <p>System or browser tab audio recording is supported only by Chromium-based browsers. To record audio, make sure you enable the <strong>Share audio</strong> option when picking the content you want to record.</p>
+      </Grid.Column>
+      <Grid.Column>
+        <Header as='h4'>Can I include my microphone audio in the recording?</Header>
+        <p>Not yet, but this feature is on the priority list.</p>
       </Grid.Column>
       <Grid.Column>
         <Header as='h4'>I'm concerned about privacy. Where are videos stored and who can access them?</Header>
