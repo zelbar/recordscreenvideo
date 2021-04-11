@@ -18,7 +18,11 @@ class VideoRecorder {
 
     _startDisplayMediaCapture() {
         const constraints = {
-            audio: true,
+            audio: {
+                channelCount: {
+                    ideal: 2
+                }
+            },
             video: true,
         }
         if (navigator.getDisplayMedia) {
