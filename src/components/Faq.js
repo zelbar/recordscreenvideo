@@ -13,7 +13,7 @@ const Faq = () => (
         <p>
           Currently supported browsers</p>
           <List bulleted>
-            <List.Item>Chromium based browsers (e.g. Chrome, Edge)</List.Item>
+            <List.Item>Chromium-based browsers (e.g. Chrome, Edge)</List.Item>
             <List.Item>Firefox</List.Item>
             <List.Item>Opera</List.Item>
           </List>
