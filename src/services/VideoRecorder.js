@@ -3,27 +3,33 @@ import { VideoStorage } from './VideoStorage';
 class VideoRecorder {
 
     _startUserMediaCapture() {
-        const constraints = { audio: true, video: false };
+        const constraints = {
+            audio: true,
+            video: false
+        };
 
         if (navigator.getUserMedia) {
-            return new Promise((resolve, reject) => navigator.getUserMedia(constraints, resolve, reject));
+            return new Promise((resolve, reject) =>
+                navigator.getUserMedia(constraints, resolve, reject));
         } else if (navigator.mediaDevices.getUserMedia) {
             return navigator.mediaDevices.getUserMedia(constraints);
         }
     }
 
-    _startDisplayCapture() {
-        const videoParams = true;
-
+    _startDisplayMediaCapture() {
+        const constraints = {
+            audio: true,
+            video: true,
+        }
         if (navigator.getDisplayMedia) {
-            return navigator.getDisplayMedia({ video: videoParams });
+            return navigator.getDisplayMedia(constraints);
         } else if (navigator.mediaDevices.getDisplayMedia) {
-            return navigator.mediaDevices.getDisplayMedia({ video: videoParams });
+            return navigator.mediaDevices.getDisplayMedia(constraints);
         }
     }
 
     async start(options) {
-        const {format, recordMicrophoneAudio, stopCallback} = options;
+        const { format, recordMicrophoneAudio, stopCallback } = options;
         this.format = format;
         this.stopCallback = stopCallback;
 
@@ -34,19 +40,29 @@ class VideoRecorder {
         this.chunks = [];
         this.recording = null;
 
-        if (recordMicrophoneAudio) {
-            this.userStream = await this._startUserMediaCapture();
+        this.displayStream = await this._startDisplayMediaCapture();
+
+        if (this.displayStream.getAudioTracks().length > 0) {
+            console.log('Added system audio.');
         }
 
-        this.displayStream = await this._startDisplayCapture();
+        if (recordMicrophoneAudio) {
+            this.userMediaStream = await this._startUserMediaCapture();
 
-        console.log('Start recording.');
+            if (this.userMediaStream && this.userMediaStream.getAudioTracks().length > 0) {
+                console.log('Added microphone audio.');
+            }
+        }
+
+        console.log('Started recording.');
 
         this.displayStream.addEventListener('inactive', this.stopCallback);
 
-        this.combinedStream = [this.displayStream.getTracks()[0]];
-        if (this.userStream) {
-            this.combinedStream.push(this.userStream.getTracks()[0]);
+        this.combinedStream = [
+            ...this.displayStream.getTracks(),
+        ];
+        if (this.userMediaStream) {
+            this.userMediaStream.foreach(track => this.combinedStream.push(track));
         }
 
         this.mediaStream = new MediaStream(this.combinedStream);
@@ -64,21 +80,23 @@ class VideoRecorder {
         if (!this.mediaRecorder) return;
         if (this.mediaRecorder.state === 'inactive') return;
 
-        console.log('Stop recording.');
-
-        this.displayStream.removeEventListener('inactive', this.stopCallback);
-
-        const track = this.displayStream.getTracks()[0];
-        const { width, height } = track.getSettings();
-
         this.mediaRecorder.stop();
         this.mediaRecorder = null;
+
         this.displayStream.getTracks().forEach(track => track.stop());
-        if (this.userStream) {
-            this.userStream.getTracks().forEach(track => track.stop());
+
+        if (this.userMediaStream) {
+            this.userMediaStream.getTracks().forEach(track => track.stop());
         }
+        
+        console.log('Stoped recording.');
+
+        this.displayStream.removeEventListener('inactive', this.stopCallback);
+        const videoTrack = this.displayStream.getVideoTracks()[0];
+        const { width, height } = videoTrack.getSettings();
+
         this.displayStream = null;
-        this.userStream = null;
+        this.userMediaStream = null;
 
         const blob = new Blob(this.chunks, { type: this.format });
         VideoStorage.objectUrl = window.URL.createObjectURL(blob);
@@ -86,7 +104,7 @@ class VideoRecorder {
         VideoStorage.type = blob.type;
 
         return {
-            dimensions: { width, height},
+            dimensions: { width, height }
         }
     }
 }
