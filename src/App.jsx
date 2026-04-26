@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router';
+import { Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Record from './components/Record';
 import RedirectToRecord from './components/RedirectToRecord';
@@ -24,3 +24,4 @@ const App = () => (
 );
 
 export default App;
+

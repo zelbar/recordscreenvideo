@@ -3,7 +3,7 @@ import Steps from './Steps';
 import Social from './Social';
 import Footer from './Footer';
 import { withRouter } from 'react-router-dom';
-import { Container, Grid } from 'semantic-ui-react/dist/commonjs';
+import { Container, Grid } from 'semantic-ui-react';
 
 const Layout = props => (
   <Grid>
@@ -29,3 +29,4 @@ const Layout = props => (
 );
 
 export default withRouter(Layout);
+

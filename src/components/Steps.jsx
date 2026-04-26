@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { NavLink, withRouter } from 'react-router-dom';
-import { Icon, Responsive, Step } from 'semantic-ui-react/dist/commonjs'
+import { Icon, Step } from 'semantic-ui-react'
 import { actionCreators } from '../store/File';
 import config from '../config';
 
@@ -13,27 +13,21 @@ const Steps = props => (
                 <Icon name='record' />
                 <Step.Content>
                     <Step.Title>Record</Step.Title>
-                    <Responsive {...Responsive.onlyComputer}>
-                        <Step.Description>Video format &amp; recording area</Step.Description>
-                    </Responsive>
+                    <Step.Description>Video format &amp; recording area</Step.Description>
                 </Step.Content>
             </Step>
             <Step as={NavLink} to="/replay" disabled={!props.fileAvailable}>
                 <Icon name='video play' />
                 <Step.Content>
                     <Step.Title>Replay</Step.Title>
-                    <Responsive {...Responsive.onlyComputer}>
-                        <Step.Description>Preview recording</Step.Description>
-                    </Responsive>
+                    <Step.Description>Preview recording</Step.Description>
                 </Step.Content>
             </Step>
             <Step as={NavLink} to="/save" disabled={!props.fileAvailable}>
                 <Icon name='download' />
                 <Step.Content>
                     <Step.Title>Save</Step.Title>
-                    <Responsive {...Responsive.onlyComputer}>
-                        <Step.Description>File name &amp; save</Step.Description>
-                    </Responsive>
+                    <Step.Description>File name &amp; save</Step.Description>
                 </Step.Content>
             </Step>
             {config.showShareStep &&

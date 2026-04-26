@@ -6,3 +6,4 @@ const Share = props => (
 );
 
 export default Share;
+

@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { actionCreators as resolutionActionCreators, resolutions } from '../store/Resolution';
 import { actionCreators as fileActionCreators } from '../store/File';
 import { VideoStorage } from '../services/VideoStorage';
-import { Advertisement, Button, Divider, Form, Grid, Header, Icon, Input, Radio, Responsive, Segment, Statistic } from 'semantic-ui-react/dist/commonjs';
-import filesize from 'filesize';
+import { Advertisement, Button, Divider, Form, Grid, Header, Icon, Input, Radio, Segment, Statistic } from 'semantic-ui-react';
+import { filesize } from 'filesize';
 import config from '../config';
 
 const Save = props => {
@@ -15,9 +15,7 @@ const Save = props => {
   const handleSetHeight = (evt, { value }) => props.resolutionActions.setHeight(parseInt(value, 10));
   const handleSetFileName = (evt, { value }) => props.fileActions.setFileName(value);
   const SaveRecording = () => {
-    console.log('Save recording.');
     const SaveLink = document.createElement('a');
-    SaveLink.addEventListener('progress', e => console.log(e));
     SaveLink.href = VideoStorage.objectUrl;
     SaveLink.style = 'display: none';
     SaveLink.setAttribute('download', `${props.file.name}.${props.file.extension}`);
@@ -122,15 +120,7 @@ const Save = props => {
       </Grid.Row>
       {config.showAds &&
         <Grid.Row>
-          <Responsive {...Responsive.onlyComputer}>
-            <Advertisement centered unit='billboard' test='Computer Billboard #2' />
-          </Responsive>
-          <Responsive {...Responsive.onlyTablet}>
-            <Advertisement centered unit='large rectangle' test='Large Tablet Rectangle #2' />
-          </Responsive>
-          <Responsive {...Responsive.onlyMobile}>
-            <Advertisement unit='mobile banner' test='Mobile Banner #1' />
-          </Responsive>
+          <Advertisement centered unit='billboard' test='Computer Billboard #2' />
         </Grid.Row>}
     </Grid>
   );
@@ -140,3 +130,4 @@ export default withRouter(connect(
   state => ({ resolution: state.resolution, file: state.file }),
   dispatch => ({ resolutionActions: bindActionCreators(resolutionActionCreators, dispatch), fileActions: bindActionCreators(fileActionCreators, dispatch) })
 )(Save));
+

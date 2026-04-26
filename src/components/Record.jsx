@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Advertisement, Button, Form, Grid, Header, Icon, Message, Modal, Radio, Responsive, Segment } from 'semantic-ui-react/dist/commonjs';
+import { Advertisement, Button, Form, Grid, Header, Icon, Message, Modal, Radio, Segment } from 'semantic-ui-react';
 import { actionCreators as fileActionCreators, possibleFormats } from '../store/File';
 import { actionCreators as recordingActionCreators } from '../store/Recording';
 import { actionCreators as resolutionActionCreators } from '../store/Resolution';
@@ -15,14 +15,18 @@ const cursorOptions = [
 ]
 
 const Record = props => {
-    const handleSetCursorOption = (event, { value }) => this.setState({ cursorOption: value });
+    const [cursorOption, setCursorOption] = useState(cursorOptions[0].id);
+    const handleSetCursorOption = (event, { value }) => setCursorOption(value);
     const handleSetFileFormat = (event, { value }) => props.fileActions.setFileFormat(value);
     const handleSetRecordUserAudio = (event, { checked }) => props.fileActions.setRecordMicrophoneAudio(checked);
     const handleErrorClose = (event) => props.recordingActions.closeError();
 
-    const supported = window.MediaRecorder &&
-        (navigator.getDisplayMedia || navigator.mediaDevices.getDisplayMedia);
-    props.recordingActions.setBrowserSupport(supported);
+    useEffect(() => {
+        const supported = window.MediaRecorder &&
+            (navigator.getDisplayMedia || (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia));
+        props.recordingActions.setBrowserSupport(supported);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     function handleStartRecording() {
         props.recordingActions.consentDim(true);
@@ -35,22 +39,26 @@ const Record = props => {
             props.recordingActions.startRecording();
             props.recordingActions.consentDim(false);
         }).catch(ex => {
-            props.recordingActions.showError(ex.message);
+            props.recordingActions.showError(ex && ex.message ? ex.message : 'Failed to start recording.');
             console.error(ex);
         }).finally(() => props.recordingActions.consentDim(false))
     }
 
-    function handleStopRecording() {
-        VideoRecorder.stop().then(data => {
+    async function handleStopRecording() {
+        try {
+            const data = await VideoRecorder.stop();
             props.recordingActions.stopRecording();
 
-            if (data) {
+            if (data && data.dimensions) {
                 props.resolutionActions.setWidth(data.dimensions.width);
                 props.resolutionActions.setHeight(data.dimensions.height);
                 props.fileActions.setFileAvailable(true);
                 props.history.push('/replay');
             }
-        });
+        } catch (ex) {
+            props.recordingActions.showError(ex && ex.message ? ex.message : 'Failed to stop recording.');
+            console.error(ex);
+        }
     }
 
     return (
@@ -93,7 +101,7 @@ const Record = props => {
                                                 label={opt.label}
                                                 name='cursorOptionId'
                                                 value={opt.id}
-                                                checked={opt.id === props.cursorOption}
+                                                checked={opt.id === cursorOption}
                                                 onChange={handleSetCursorOption}
                                             />
                                         </Grid.Column>)}
@@ -141,15 +149,7 @@ const Record = props => {
                     </Segment>}
                 {config.showAds &&
                     <Grid.Row>
-                        <Responsive {...Responsive.onlyComputer}>
-                            <Advertisement unit='billboard' test='Computer Billboard #1' />
-                        </Responsive>
-                        <Responsive {...Responsive.onlyTablet}>
-                            <Advertisement centered unit='large rectangle' test='Large Tablet Rectangle #1' />
-                        </Responsive>
-                        <Responsive {...Responsive.onlyMobile}>
-                            <Advertisement unit='small rectangle' test='Mobile Small Rectangle #1' />
-                        </Responsive>
+                        <Advertisement unit='billboard' test='Computer Billboard #1' />
                     </Grid.Row>}
             </Grid>
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header } from 'semantic-ui-react/dist/commonjs';
+import { Header } from 'semantic-ui-react';
 
 const Privacy = () => (
   <div>
@@ -12,3 +12,4 @@ const Privacy = () => (
 );
 
 export default Privacy;
+

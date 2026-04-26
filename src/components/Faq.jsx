@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Header, List } from 'semantic-ui-react/dist/commonjs';
+import { Grid, Header, List } from 'semantic-ui-react';
 
 const Faq = () => (
   <div>
@@ -55,3 +55,4 @@ const Faq = () => (
 );
 
 export default Faq;
+

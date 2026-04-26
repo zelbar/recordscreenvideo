@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Grid, Header, Item } from 'semantic-ui-react/dist/commonjs';
+import { Container, Grid, Header, Item } from 'semantic-ui-react';
 
 const HowItWorks = props => (
   <Container>
@@ -109,3 +109,4 @@ const HowItWorks = props => (
 );
 
 export default HowItWorks;
+
